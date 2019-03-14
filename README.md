@@ -1,14 +1,14 @@
 
 
 ### Overview of steps that were taken to complete this project:
-## 1. Calibrate Camera
-## 2. Undistort an image, or in the case of a video, a frame
-## 3. Apply a Binary Threshold to the unidsorted image or frame
-## 4. Warp the Binary image to reflect a "top-down" view of the image or frame
-## 5. Fit a polynomial line to the lane lines
-## 6. Measure the curvature of the road and vehicle position with respect to the lane it is in
-## 7. Transform the image or frame back to the original view 
-## 8. Color-fill the lane between the lane lines and write the curvature/vehicle position onto the image or frame
+# 1. Calibrate Camera
+# 2. Undistort an image, or in the case of a video, a frame
+# 3. Apply a Binary Threshold to the unidsorted image or frame
+# 4. Warp the Binary image to reflect a "top-down" view of the image or frame
+# 5. Fit a polynomial line to the lane lines
+# 6. Measure the curvature of the road and vehicle position with respect to the lane it is in
+# 7. Transform the image or frame back to the original view 
+# 8. Color-fill the lane between the lane lines and write the curvature/vehicle position onto the image or frame
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
