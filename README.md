@@ -1,4 +1,4 @@
-[image1]: ./Output_Images/Calibration1.jpg "Undistorted Chessboard"
+[image1]: ./Output_Images/calibration1.jpg "Undistorted Chessboard"
 [image2]: ./Output_Images/Calibration2.png "Undistorted Road Image"
 [image3]: ./Output_Images/BinaryStraight.png "Fit Visual"
 [image4]: ./Output_Images/BinaryTest3.png "Output"
