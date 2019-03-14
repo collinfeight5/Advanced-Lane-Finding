@@ -1,7 +1,21 @@
+[image1]: ./Output_Images/Calibration.png "Undistorted Chessboard"
+[image2]: ./Output_Images/Calibration2.png "Undistorted Road Image"
+[image3]: ./Output_Images/BinaryStraight.png "Fit Visual"
+[image4]: ./Output_Images/BinaryTest3.png "Output"
+[image5]: ./Output_Images/TopDownStraight.png "Output"
+[image6]: ./Output_Images/TopDownTest3.png "Output"
+[image7]: ./Output_Images/LanePixelsStraight.png "Output"
+[image8]: ./Output_Images/LanePixelsTest3.png "Output"
+[image9]: ./Output_Images/FinalStraight.png "Output"
+[image10]: ./Output_Images/FinalTest2.png "Output"
 
+
+
+
+[video1]: ./project_video.mp4 "Video"
 
 ## Overview of steps that were taken to complete this project: Detailed descriptions seen below
-### 1. Calibrate Camera
+### 1. Get array of object points and image points from calibration chessboard images
 ### 2. Undistort an image, or in the case of a video, a frame
 ### 3. Apply a Binary Threshold to the unidsorted image or frame
 ### 4. Warp the Binary image to reflect a "top-down" view of the image or frame
@@ -11,16 +25,17 @@
 ### 8. Color-fill the lane between the lane lines and write the curvature/vehicle position onto the image or frame
 
 
-#### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
-
-The code for this step is contained in the first code cell of the IPython notebook located in "./examples/example.ipynb" (or in lines # through # of the file called `some_file.py`).  
-
+#### 1. 
+The code for this step is contained in lines 17-36. 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
-I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
+####2. 
+the code for this step is contained in lines 63--66.
+I then use the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result for a calibration image: 
 
 ![alt text][image1]
 
+and this for an image of the car on the road: Note the circled locations compared to the inital image
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
