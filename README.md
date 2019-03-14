@@ -36,12 +36,13 @@ I then use the output `objpoints` and `imgpoints` to compute the camera calibrat
 ![alt text][image1]
 
 and this for an image of the car on the road: Note the circled locations compared to the inital image
+
+![alt text][image2]
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
