@@ -15,19 +15,8 @@
 [//]: # (Image References)
 
 
-[video1]: ./project_video.mp4 "Video"
 
 ## Overview of steps that were taken to complete this project: Detailed descriptions seen below
-### 1. Get array of object points and image points from calibration chessboard images
-### 2. Undistort an image, or in the case of a video, a frame
-### 3. Apply a Binary Threshold to the unidsorted image or frame
-### 4. Warp the Binary image to reflect a "top-down" view of the image or frame
-### 5. Fit a polynomial line to the lane lines
-### 6. Measure the curvature of the road 
-### 7. Create function to transform the image/frame back to the original view from TopDown and color fill lines;  
-### 8. Formats and creates text on image/frame for curvature; also calculates vehicle position
-### 9. Creates function to call input video and process each frame individually. 
-### 10. Create "all" function that takes individual image/frame and runs it through steps above.
 
 
 ### Step 1. 
