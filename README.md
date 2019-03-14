@@ -103,7 +103,7 @@ This is where I read in the input video, and break it into individual frames tha
 ### Step 10.
 The code for the following step is contained in lines 43-60.
 
-The Final step. Pass an image or frame into this function and it will run it through each step described above in the right order and output the correct and final result! The final output was a video that showed the vehicles position, lanes curvature, along with the lane highlighted as the vehicle "drove". unfortunately, the output video was to big to post to github, but is very similar to the images seen below.An awesome project!
+The Final step. Pass an image or frame into this function and it will run it through each step described above in the right order and output the correct and final result! The final output was a video that showed the vehicles position, lanes curvature, along with the lane highlighted as the vehicle "drove". unfortunately, the output video was to big to post to github, but is very similar to the images seen below. An awesome project!
 
 ![alt text][image9]
 
