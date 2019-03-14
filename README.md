@@ -111,20 +111,5 @@ The Final step. Pass an image or frame into this function and it will run it thr
 
 
 
-### Pipeline (video)
-
-#### Link to the pipeline output video. 
-
-Here's a [link to my video result](./project_video.mp4)
-
----
-
-### Discussion
-
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
-Some problems that I encountered during the project was finding the right threshold parameters for my binary image. Along with this, combining the right thresholds was also challenging. My initial program that I came up with struggled when the road changed color, or there was a shadow present in the road. 
-Another issue I had was when the car in the next lane over drove past me. my intital pipeline shifted the lanes over to the car rather than keeping them on the lane lines. 
-Things that would cause my pipeline to fail would be drastic corners. To account for this, I could implement using the "Search from Prior" method described in the lessons. This is something I plan on coming back to and implementing. 
 
 
