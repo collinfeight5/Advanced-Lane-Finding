@@ -2,22 +2,24 @@
 [image2]: ./Output_Images/Calibration2.png "Undistorted Road Image"
 [image3]: ./Output_Images/BinaryStraight.png "Straight Line Binary"
 [image4]: ./Output_Images/BinaryTest3.png "Curved Line Binary"
-[image5]: ./Output_Images/TopDownStraight.png "Output"
-[image6]: ./Output_Images/TopDownTest3.png "Output"
-[image7]: ./Output_Images/LanePixelsStraight.png "Output"
-[image8]: ./Output_Images/LanePixelsTest3.png "Output"
-[image9]: ./Output_Images/FinalStraight.png "Output"
-[image10]: ./Output_Images/FinalTest2.png "Output"
+[image5]: ./Output_Images/TopDownStraight.png "Top Down Straight"
+[image6]: ./Output_Images/TopDownTest3.png "Top Down Curve"
+[image7]: ./Output_Images/LanePixelsStraight.png "Pixels Straight"
+[image8]: ./Output_Images/LanePixelsTest3.png "Pixels Curved"
+[image9]: ./Output_Images/FinalStraight.png "Straight Final"
+[image10]: ./Output_Images/FinalTest2.png "Curved Final"
 [image11]: ./Test_Inputs/Curvature.png "Curve"
+
+[video1]: ./Video_Ouptut/Advanced_Lane_Finding.avi "Video"
 
 
 
 [//]: # (Image References)
 
+## Detailed descriptions of the project can be seen below and in the code. 
 
 
-## Overview of steps that were taken to complete this project: Detailed descriptions seen below
-
+###Here's a [link to my video result](./Video_Output/Advanced_Lane_Finding.avi)
 
 ### Step 1. 
 The code for this step is contained in lines 17-36. 
@@ -37,9 +39,11 @@ I then use the output `objpoints` and `imgpoints` to compute the camera calibrat
 
 ![alt text][image1]
 
-and this for an image of the car on the road: Note the circled locations compared to the inital image
+and this for an image of the car on the road: Note the circled locations are the major source of noticable difference.
 
 ![alt text][image2]
+
+
 
 ### Step 3.
 The code for the following step is contained in lines 92-118.
@@ -103,11 +107,9 @@ This is where I read in the input video, and break it into individual frames tha
 ### Step 10.
 The code for the following step is contained in lines 43-60.
 
-The Final step. Pass an image or frame into this function and it will run it through each step described above in the right order and output the correct and final result! The final output was a video that showed the vehicles position, lanes curvature, along with the lane highlighted as the vehicle "drove". unfortunately, the output video was to big to post to github, but is very similar to the images seen below. An awesome project!
+The Final step. Pass an image or frame into this function and it will run it through each step described above in the right order and output the correct and final result! The final output was a video that showed the vehicles position, lanes curvature, along with the lane highlighted as the vehicle "drove", can be seen in the Video_Output folder. An awesome project!
 
-![alt text][image9]
 
-![alt text][image10]
 
 
 
