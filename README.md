@@ -19,7 +19,7 @@
 ## Detailed descriptions of the project can be seen below and in the code. 
 
 
-###Here's a [link to my video result](./Video_Output/Advanced_Lane_Finding.avi)
+### Here's a [link to my video result](./Video_Output/Advanced_Lane_Finding.avi)
 
 ### Step 1. 
 The code for this step is contained in lines 17-36. 
