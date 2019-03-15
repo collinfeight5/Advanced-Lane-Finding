@@ -15,19 +15,8 @@
 [//]: # (Image References)
 
 
-[video1]: ./project_video.mp4 "Video"
 
 ## Overview of steps that were taken to complete this project: Detailed descriptions seen below
-### 1. Get array of object points and image points from calibration chessboard images
-### 2. Undistort an image, or in the case of a video, a frame
-### 3. Apply a Binary Threshold to the unidsorted image or frame
-### 4. Warp the Binary image to reflect a "top-down" view of the image or frame
-### 5. Fit a polynomial line to the lane lines
-### 6. Measure the curvature of the road 
-### 7. Create function to transform the image/frame back to the original view from TopDown and color fill lines;  
-### 8. Formats and creates text on image/frame for curvature; also calculates vehicle position
-### 9. Creates function to call input video and process each frame individually. 
-### 10. Create "all" function that takes individual image/frame and runs it through steps above.
 
 
 ### Step 1. 
@@ -114,7 +103,7 @@ This is where I read in the input video, and break it into individual frames tha
 ### Step 10.
 The code for the following step is contained in lines 43-60.
 
-The Final step. Pass an image or frame into this function and it will run it through each step described above in the right order and output the correct and final result. 
+The Final step. Pass an image or frame into this function and it will run it through each step described above in the right order and output the correct and final result! The final output was a video that showed the vehicles position, lanes curvature, along with the lane highlighted as the vehicle "drove". unfortunately, the output video was to big to post to github, but is very similar to the images seen below. An awesome project!
 
 ![alt text][image9]
 
@@ -122,20 +111,5 @@ The Final step. Pass an image or frame into this function and it will run it thr
 
 
 
-### Pipeline (video)
-
-#### Link to the pipeline output video. 
-
-Here's a [link to my video result](./project_video.mp4)
-
----
-
-### Discussion
-
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
-Some problems that I encountered during the project was finding the right threshold parameters for my binary image. Along with this, combining the right thresholds was also challenging. My initial program that I came up with struggled when the road changed color, or there was a shadow present in the road. 
-Another issue I had was when the car in the next lane over drove past me. my intital pipeline shifted the lanes over to the car rather than keeping them on the lane lines. 
-Things that would cause my pipeline to fail would be drastic corners. To account for this, I could implement using the "Search from Prior" method described in the lessons. This is something I plan on coming back to and implementing. 
 
 
