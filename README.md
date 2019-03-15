@@ -10,15 +10,16 @@
 [image10]: ./Output_Images/FinalTest2.png "Curved Final"
 [image11]: ./Test_Inputs/Curvature.png "Curve"
 
+[video1]: ./Video_Ouptut/Advanced_Lane_Finding.avi "Video"
 
 
 
 [//]: # (Image References)
 
+## Detailed descriptions of the project can be seen below and in the code. 
 
 
-## Overview of steps that were taken to complete this project: Detailed descriptions seen below
-
+###Here's a [link to my video result](./Video_Output/Advanced_Lane_Finding.avi)
 
 ### Step 1. 
 The code for this step is contained in lines 17-36. 
@@ -108,9 +109,7 @@ The code for the following step is contained in lines 43-60.
 
 The Final step. Pass an image or frame into this function and it will run it through each step described above in the right order and output the correct and final result! The final output was a video that showed the vehicles position, lanes curvature, along with the lane highlighted as the vehicle "drove", can be seen in the Video_Output folder. An awesome project!
 
-![alt text][image9]
 
-![alt text][image10]
 
 
 
