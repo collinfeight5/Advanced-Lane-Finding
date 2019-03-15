@@ -1,20 +1,24 @@
+# The goal of this pipeline is to read in a video, frame by frame,
+# and output a video displaying the lane boundaries, lane curvature,
+# and vehicle position
+#
+#Written by Collin Feight
+
 import numpy as np
 import cv2 as cv
 import glob
 import matplotlib.pyplot as plt
 
+#constants used for script
 nx = 9
 ny = 6
 ym = 30/720
 xm = 3.7/700
 
+#Images used for testing and calibration
 test = cv.imread('camera_cal/calibration1.jpg')
-test_image = cv.imread('test1.jpg')
-test3 = cv.imread('test3.jpg')
-straight = cv.imread('straight_lines1.jpg')
+test_image = cv.imread('Test_Inputs/test1.jpg')
 chessboard_images = glob.glob('camera_cal/calibration*.jpg')
-#video = ('project_video.mp4')
-
 
 objp = np.zeros((ny*nx,3), np.float32)
 objp[:,:2] = np.mgrid[0:nx,0:ny].T.reshape(-1,2)
@@ -23,8 +27,7 @@ objp[:,:2] = np.mgrid[0:nx,0:ny].T.reshape(-1,2)
 objectpoints = [] # 3d points in real world space
 imagepoints = [] # 2d points in image plane.
 
-# Make a list of calibration images
-
+# Make a list of calibration images and Calibrate Camera
 for fname in chessboard_images:
     img = cv.imread(fname)
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
@@ -34,29 +37,35 @@ for fname in chessboard_images:
 
     # If found, add object points, image points
     if ret:
-       # print("found chessboard corners")
         objectpoints.append(objp)
         imagepoints.append(corners)
 
-        # Draw and display the corners
-        img = cv.drawChessboardCorners(img, (nx, ny), corners, ret)
 
 def main():
     save_video()
 
+
+#Input is Image or Individual Frame from Video
 def all(input):
     objpoints, imgpoints = objectpoints, imagepoints
+
     corrected_image, mtx, dist = undistort_image(input, objpoints, imgpoints)
+
     combined_binary = pipeline(corrected_image)
-    top_down = corners_unwarp(combined_binary)[0]
+
+    top_down = warping_funct(combined_binary)[0]
+
     out_img, left_poly, right_ploy, ploty, left_line, right_line = fit_polynomial(top_down, ym, xm)
+
     left_val_real, right_val_real = measure_curvature(left_poly, right_ploy, ploty, ym, xm)
-    lanes_filled = drawLaneonimage(input, left_line, right_line, ym, xm, left_poly, right_ploy, left_val_real, right_val_real)
+
+    lanes_filled = drawLaneonimage(input, left_line, right_line, ym, xm, left_poly, right_ploy, left_val_real,
+                                   right_val_real)
+
     #axis_display(top_down,out_img, lanes_filled)
     return lanes_filled
 
 
-# make the lines straight
 def undistort_image(image, objectpoints, imagepoints):
     ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objectpoints, imagepoints, image.shape[1:], None, None)
     undistorted_image = cv.undistort(image, mtx, dist, None, mtx)
@@ -64,26 +73,29 @@ def undistort_image(image, objectpoints, imagepoints):
 
 
 # fit the image according to the source points
-def corners_unwarp(img):
+def warping_funct(img):
 
     img_size = (img.shape[1], img.shape[0])
 
-    #Vehicle View
+    #Vehicle View hardcoded in
     src = np.float32([[580, 460], [205, 720], [1110, 720], [703, 460]])
 
-    #Desired View
+    #Desired View hardcoded in
     dst = np.float32([[320, 0], [320, 720], [960, 720], [960, 0]])
     M = cv.getPerspectiveTransform(src, dst)  # The transformation matrix
     Minv = cv.getPerspectiveTransform(dst, src)  # Inverse transformation
 
-    #img = cv.imread('./test_img.jpg')  # Read the test img
-    warped_img = cv.warpPerspective(img, M, img_size)  # Image warping
+    #Image warping
+    warped_img = cv.warpPerspective(img, M, img_size)
 
+    #Image Unwarped
     unwarp_img = cv.warpPerspective(img, Minv, img_size)
     # Return the resulting image and matrix
     return warped_img, unwarp_img
 
-def pipeline(img, s_thresh=(100, 20), sx_thresh=(15, 100), r_thresh = (210, 255)):
+
+#Creates Binary Image of Top Down Image
+def pipeline(img, s_thresh=(180, 255), b_thresh=(155, 200), l_thresh=(225, 255)):
     img = np.copy(img)
     s_channel = cv.cvtColor(img, cv.COLOR_BGR2HLS)[:, :, 2]
 
@@ -92,20 +104,17 @@ def pipeline(img, s_thresh=(100, 20), sx_thresh=(15, 100), r_thresh = (210, 255)
     b_channel = cv.cvtColor(img, cv.COLOR_BGR2Lab)[:, :, 2]
 
     # Threshold color channel
-    s_thresh_min = 180
-    s_thresh_max = 255
+
     s_binary = np.zeros_like(s_channel)
-    s_binary[(s_channel >= s_thresh_min) & (s_channel <= s_thresh_max)] = 1
+    s_binary[(s_channel >= s_thresh[0]) & (s_channel <= s_thresh[1])] = 1
 
-    b_thresh_min = 155
-    b_thresh_max = 200
+
     b_binary = np.zeros_like(b_channel)
-    b_binary[(b_channel >= b_thresh_min) & (b_channel <= b_thresh_max)] = 1
+    b_binary[(b_channel >= b_thresh[0]) & (b_channel <= b_thresh[1])] = 1
 
-    l_thresh_min = 225
-    l_thresh_max = 255
+
     l_binary = np.zeros_like(l_channel)
-    l_binary[(l_channel >= l_thresh_min) & (l_channel <= l_thresh_max)] = 1
+    l_binary[(l_channel >= l_thresh[0]) & (l_channel <= l_thresh[1])] = 1
 
     # color_binary = np.dstack((u_binary, s_binary, l_binary))
 
@@ -113,6 +122,7 @@ def pipeline(img, s_thresh=(100, 20), sx_thresh=(15, 100), r_thresh = (210, 255)
     combined_binary[(l_binary == 1) | (b_binary == 1)] = 1
 
     return combined_binary
+
 
 #Sliding Windows Approach
 def find_lane_pixels(top_down):
@@ -197,6 +207,7 @@ def find_lane_pixels(top_down):
     return leftx, lefty, rightx, righty, out_img
 
 
+#Where Polynomial Lines are Created
 def fit_polynomial(binary_warped, ym, xm):
     # Find our lane pixels first
     leftx, lefty, rightx, righty, out_img = find_lane_pixels(binary_warped)
@@ -231,13 +242,11 @@ def fit_polynomial(binary_warped, ym, xm):
     return out_img, left_fit_c, right_fit_c, ploty, left_fit, right_fit
 
 
+#Curvature measured using adjusted polynomial lines for real world values
 def measure_curvature(left, right, ploty, ym, xm):
     y_eval = np.max(ploty)*ym
     left_curve = ((1 + (2*left[0]*y_eval*ym + left[1])**2)**1.5) / np.absolute(2*left[0])
     right_curve = ((1 + (2*right[0]*y_eval*ym + right[1])**2)**1.5) / np.absolute(2*right[0])
-
-
-
     return left_curve, right_curve
 
 
@@ -251,10 +260,11 @@ def drawLine(img, left_fit, right_fit):
     pts_right = np.array([np.flipud(np.transpose(np.vstack([right_fitx, ploty])))])
     pts = np.hstack((pts_left, pts_right))
     cv.fillPoly(color_warp, np.int_([pts]), (0,255, 0))
-    newwarp = corners_unwarp(color_warp)[1]
+    newwarp = warping_funct(color_warp)[1]
     return cv.addWeighted(img, 1, newwarp, 0.3, 0)
 
 
+#Vehicle Position Calculated Here
 def drawLaneonimage(img, left, right, ym, xm, left_c, right_c, left_curve, right_curve):
     output = drawLine(img, left, right)
 
@@ -279,17 +289,18 @@ def drawLaneonimage(img, left, right, ym, xm, left_c, right_c, left_curve, right
     cv.putText(output, 'Vehicle is {} of center'.format(message), (20, 210), font, fontscale, fontcolor, 2)
 
 
-    return cv.cvtColor(output, cv.COLOR_BGR2RGB)
+    return output
 
 
+#Used to read in and save video
 def save_video():
-    video = cv.VideoCapture('project_video.mp4')
+    video = cv.VideoCapture('Test_Inputs/project_video.mp4')
 
     frame_width = int(video.get(3))
     frame_height = int(video.get(4))
 
     # define codec, create VideoWriter
-    out = cv.VideoWriter('shadows.avi', cv.VideoWriter_fourcc('M', 'J', 'P', 'G'), 10, (frame_width, frame_height))
+    out = cv.VideoWriter('Final_Output.avi', cv.VideoWriter_fourcc('M', 'J', 'P', 'G'), 10, (frame_width, frame_height))
 
     # iterate through video and process frame by frame
     while video.isOpened():
@@ -311,10 +322,13 @@ def save_video():
     cv.destroyAllWindows()
 
 
+#For Testing
 def display(subject):
     plt.imshow(subject)
     plt.show()
 
+
+#For Testing
 def axis_display(im1, im2, im3):
 
     f, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(24, 9))
@@ -323,6 +337,7 @@ def axis_display(im1, im2, im3):
     ax2.imshow(im2)
     ax3.imshow(im3)
     plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
+
 
 if __name__ == '__main__':
     main()
