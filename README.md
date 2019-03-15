@@ -109,6 +109,9 @@ The code for the following step is contained in lines 43-60.
 
 The Final step. Pass an image or frame into this function and it will run it through each step described above in the right order and output the correct and final result! The final output was a video that showed the vehicles position, lanes curvature, along with the lane highlighted as the vehicle "drove", can be seen in the Video_Output folder. An awesome project!
 
+![alt text][image9]
+
+![alt text][image10]
 
 
 
