@@ -2,13 +2,14 @@
 [image2]: ./Output_Images/Calibration2.png "Undistorted Road Image"
 [image3]: ./Output_Images/BinaryStraight.png "Straight Line Binary"
 [image4]: ./Output_Images/BinaryTest3.png "Curved Line Binary"
-[image5]: ./Output_Images/TopDownStraight.png "Output"
-[image6]: ./Output_Images/TopDownTest3.png "Output"
-[image7]: ./Output_Images/LanePixelsStraight.png "Output"
-[image8]: ./Output_Images/LanePixelsTest3.png "Output"
-[image9]: ./Output_Images/FinalStraight.png "Output"
-[image10]: ./Output_Images/FinalTest2.png "Output"
+[image5]: ./Output_Images/TopDownStraight.png "Top Down Straight"
+[image6]: ./Output_Images/TopDownTest3.png "Top Down Curve"
+[image7]: ./Output_Images/LanePixelsStraight.png "Pixels Straight"
+[image8]: ./Output_Images/LanePixelsTest3.png "Pixels Curved"
+[image9]: ./Output_Images/FinalStraight.png "Straight Final"
+[image10]: ./Output_Images/FinalTest2.png "Curved Final"
 [image11]: ./Test_Inputs/Curvature.png "Curve"
+
 
 
 
@@ -37,9 +38,11 @@ I then use the output `objpoints` and `imgpoints` to compute the camera calibrat
 
 ![alt text][image1]
 
-and this for an image of the car on the road: Note the circled locations compared to the inital image
+and this for an image of the car on the road: Note the circled locations are the major source of noticable difference.
 
 ![alt text][image2]
+
+
 
 ### Step 3.
 The code for the following step is contained in lines 92-118.
